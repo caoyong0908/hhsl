@@ -51,9 +51,14 @@ namespace hhsl_api_server.Controllers
             ApiResponse response = new ApiResponse();
             MySqlOperator opr = new MySqlOperator();
             opr.Connect();
-            var sql = $"SELECT * FROM monitor_node_group " +
+            var sql = $"SELECT mng.*, COUNT(mn.GId) as Count, mp.`Name` as MPName " +
+                      $"FROM monitor_node_group as mng " +
+                      $"INNER JOIN monitor_node as mn " +
+                      $"on mn.GId = mng.Id " +
+                      $"LEFT JOIN monitor_project as mp " +
+                      $"on mp.Id = mn.PId " +
+                      $"GROUP BY mn.GId " +
                       $"LIMIT {(pIndex - 1) * count}, {count}";
-
             // page count select
             var sqlPage = $"SELECT COUNT(1) " +
                           $"FROM monitor_node_group";
@@ -68,14 +73,15 @@ namespace hhsl_api_server.Controllers
 
 
             var reader = opr.Reader(sql);
-            List<MonitorGroupEntity> groups = new List<MonitorGroupEntity>();
+            List<MonitorNodeGroupResponse> groups = new List<MonitorNodeGroupResponse>();
             while (reader.Read())
             {
-                groups.Add(new MonitorGroupEntity
+                groups.Add(new MonitorNodeGroupResponse
                 {
                     Id = reader.GetInt322("Id"),
                     Name = reader.GetString2("Name"),
                     Desc = reader.GetString2("Desc"),
+                    Count = reader.GetInt322("Count"), 
                 });
             }
 
