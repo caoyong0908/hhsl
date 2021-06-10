@@ -89,6 +89,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\LogController.cs" />
+    <Compile Include="Controllers\MonitorNodeGroupController.cs" />
     <Compile Include="Controllers\MonitorMethodController.cs" />
     <Compile Include="Controllers\MonitorProjectController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Controllers\TerminalInfoController.cs" />
     <Compile Include="Controllers\TerminalSettingController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WarningLevelController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
