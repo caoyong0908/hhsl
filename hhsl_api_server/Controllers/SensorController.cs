@@ -30,5 +30,18 @@ namespace hhsl_api_server.Controllers
         }
 
         // list
+
+        [HttpGet]
+        public ApiResponse List(int pIndex, int count)
+        {
+            ApiResponse response = new ApiResponse();
+            MySqlOperator opr = new MySqlOperator();
+            opr.Connect();
+
+
+            opr.DisConnected();
+            return response;
+
+        }
     }
 }

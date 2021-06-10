@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using hhsl_api_server.Models;
 using hhsl_api_server.Response;
+using hhsl_api_server.Response.Entity;
 using hhsl_api_server.Sql;
 
 namespace hhsl_api_server.Controllers
@@ -39,6 +40,17 @@ namespace hhsl_api_server.Controllers
             var sql = $"SELECT * " +
                       $"FROM terminal_info " +
                       $"LIMIT {(pIndex - 1) * count}, {count}";
+
+            var sqlPage = $"SELECT COUNT(1) " +
+                          $"FROM terminal_info ";
+            var totalObj = opr.ExecuteScalar(sqlPage);
+            var total = Convert.ToInt32(totalObj);
+
+            if (total == 0)
+            {
+                opr.DisConnected();
+                return response;
+            }
             var reader = opr.Reader(sql);
             List<TerminalInfoEntity> infos = new List<TerminalInfoEntity>();
             while (reader.Read())
@@ -61,7 +73,8 @@ namespace hhsl_api_server.Controllers
             }
             reader.Close();
             opr.DisConnected();
-            response.Data = infos;
+
+            response.Data = new PageResponseEntity { Index = pIndex, Total = total, Data = infos };
             return response;
         }
 

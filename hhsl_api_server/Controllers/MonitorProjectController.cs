@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using hhsl_api_server.Models;
 using hhsl_api_server.Response;
+using hhsl_api_server.Response.Entity;
 using hhsl_api_server.Sql;
 
 namespace hhsl_api_server.Controllers
@@ -25,6 +26,18 @@ namespace hhsl_api_server.Controllers
             var sql = $"SELECT Id, Name, `Desc` " +
                       $"FROM monitor_project " +
                       $"LIMIT {(pIndex - 1) * count}, {count}";
+
+            var sqlPage = $"SELECT COUNT(1) " +
+                          $"FROM monitor_project ";
+            var totalObj = opr.ExecuteScalar(sqlPage);
+            var total = Convert.ToInt32(totalObj);
+
+            if (total == 0)
+            {
+                opr.DisConnected();
+                return response;
+            }
+
             var reader = opr.Reader(sql);
             List<MonitorProjectEntity> projects = new List<MonitorProjectEntity>();
             while (reader.Read())
@@ -39,7 +52,7 @@ namespace hhsl_api_server.Controllers
             reader.Close();
             opr.DisConnected();
 
-            response.Data = projects;
+            response.Data = new PageResponseEntity { Index = pIndex, Total = total, Data = projects };
             return response;
         }
 

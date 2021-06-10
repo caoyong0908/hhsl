@@ -27,6 +27,18 @@ namespace hhsl_api_server.Controllers
                       $"FROM terminal_setting as ts " +
                       $"RIGHT JOIN terminal_info as ti ON ti.Id = ts.TId " +
                       $"LIMIT {(pIndex - 1) * count}, {count}";
+
+            var sqlPage = $"SELECT COUNT(1) " +
+                          $"FROM terminal_setting as ts " +
+                          $"RIGHT JOIN terminal_info as ti ON ti.Id = ts.TId ";
+            var totalObj = opr.ExecuteScalar(sqlPage);
+            var total = Convert.ToInt32(totalObj);
+
+            if (total == 0)
+            {
+                opr.DisConnected();
+                return response;
+            }
             var reader = opr.Reader(sql);
             List<TerminalSettingResponse> setting = new List<TerminalSettingResponse>();
             while (reader.Read())
@@ -48,7 +60,8 @@ namespace hhsl_api_server.Controllers
             }
             reader.Close();
             opr.DisConnected();
-            response.Data = setting;
+
+            response.Data = new PageResponseEntity { Index = pIndex, Total = total, Data = setting };
             return response;
 
         }

@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using hhsl_api_server.Models;
 using hhsl_api_server.Response;
+using hhsl_api_server.Response.Entity;
 using hhsl_api_server.Sql;
 using hhsl_api_server.Tools;
 
@@ -82,6 +83,19 @@ namespace hhsl_api_server.Controllers
             var sql = $"SELECT Id, Account, Name, Phone, Email, Type, LLTime " +
                       $"FROM userinfo " +
                       $"LIMIT {(pIndex - 1) * count}, {count}";
+
+            // page count select
+            var sqlPage = $"SELECT COUNT(1) " +
+                          $"FROM userinfo";
+            var totalObj = opr.ExecuteScalar(sqlPage);
+            var total = Convert.ToInt32(totalObj);
+
+            if (total == 0)
+            {
+                opr.DisConnected();
+                return response;
+            }
+
             var reader = opr.Reader(sql);
             List<object> users = new List<object>();
             while (reader.Read())
@@ -100,7 +114,7 @@ namespace hhsl_api_server.Controllers
             reader.Close();
             opr.DisConnected();
 
-            response.Data = users;
+            response.Data = new PageResponseEntity { Index = pIndex, Total = total, Data = users};
             return response;
 
         }
