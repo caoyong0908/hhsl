@@ -50,7 +50,7 @@ namespace hhsl_api_server.Controllers
             reader.Close();
             opr.DisConnected();
 
-            response.Data = new PageResponseEntity { Index = pIndex, Total = total, Data = logs };
+            response.Data = new PageResponseEntity { Index = pIndex, Total = total, Count = count, Data = logs };
             return response;
         }
 
@@ -93,7 +93,7 @@ namespace hhsl_api_server.Controllers
             }
             reader.Close();
             opr.DisConnected();
-            response.Data = new PageResponseEntity { Index = pIndex, Total = total, Data = logs };
+            response.Data = new PageResponseEntity { Index = pIndex, Total = total, Count = count, Data = logs };
             return response;
         }
 

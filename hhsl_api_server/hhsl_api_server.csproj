@@ -119,6 +119,7 @@
     <Compile Include="Response\ApiResponse.cs" />
     <Compile Include="Response\ApiResponseCode.cs" />
     <Compile Include="Response\Entity\PageResponseEntity.cs" />
+    <Compile Include="Response\Entity\SensorInfoResponse.cs" />
     <Compile Include="Response\Entity\TerminalElectricityResponse.cs" />
     <Compile Include="Response\Entity\TerminalSettingResponse.cs" />
     <Compile Include="Sql\MySqlOperater.cs" />
