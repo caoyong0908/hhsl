@@ -14,5 +14,6 @@ namespace hhsl_api_server.Models
         public string Desc { get; set; }
 
         public string Name { get; set; }
+
     }
 }
