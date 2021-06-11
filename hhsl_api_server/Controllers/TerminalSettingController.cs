@@ -75,9 +75,9 @@ namespace hhsl_api_server.Controllers
             MySqlOperator opr = new MySqlOperator();
             opr.Connect();
             var sql = $"INSERT INTO " +
-                      $"terminal_setting(TId, CollectInterval, CollectModel, LLTime, SendInterval, CollectTimes, SendStatus) " +
+                      $"terminal_setting(TId, CollectInterval, CollectModel, SendInterval, CollectTimes, SendStatus) " +
                       $"VALUES( {setting.TId}, {setting.CollectInterval}, " +
-                      $"{setting.CollectModel}, '{setting.LLTime}', {setting.SendInterval}, " +
+                      $"{setting.CollectModel}, {setting.SendInterval}, " +
                       $"{setting.CollectTimes}, {setting.SendStatus})";
             opr.Execute(sql);
             opr.DisConnected();
@@ -94,7 +94,7 @@ namespace hhsl_api_server.Controllers
             var sql = $"UPDATE terminal_setting " +
                       $"SET " +
                       $"CollectInterval = {setting.CollectInterval}, CollectModel = {setting.CollectModel}, " +
-                      $"LLTime = '{setting.LLTime}', SendInterval = {setting.SendInterval}, " +
+                      $"SendInterval = {setting.SendInterval}, " +
                       $"CollectTimes = {setting.CollectTimes}, " +
                       $"SendStatus = {setting.SendStatus} " +
                       $"WHERE Id = {setting.Id}";
