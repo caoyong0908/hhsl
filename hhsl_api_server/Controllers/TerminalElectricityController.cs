@@ -24,7 +24,7 @@ namespace hhsl_api_server.Controllers
             MySqlOperator opr = new MySqlOperator();
             opr.Connect();
             var sql = $"INSERT INTO termina" +
-                      $"l_electricity(TId, Electricity, Type) " +
+                      $"l_electricity(TId, Type) " +
                       $"VALUES( {electricity.Tid}, '{electricity.Type}')";
             opr.Execute(sql);
             opr.DisConnected();
