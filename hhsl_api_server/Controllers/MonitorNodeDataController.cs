@@ -29,7 +29,7 @@ namespace hhsl_api_server.Controllers
 
         }
         [HttpGet]
-        public ApiResponse List(int pId, int gId, int nId, string sTime, string eTime)
+        public ApiResponse List(int pId, int gId, int nId)
         {
             ApiResponse response = new ApiResponse();
             MySqlOperator opr = new MySqlOperator();
@@ -47,6 +47,8 @@ namespace hhsl_api_server.Controllers
             return response;
         }
         // seach // project group node
+
+        // string sTime, string eTime
 
         // 
 

@@ -16,6 +16,8 @@ namespace hhsl_api_server.Controllers
     /// </summary>
     public class TerminalSettingController : ApiController
     {
+        // todo 需要根据终端类型和名称进行搜索
+
         // list
         [HttpGet]
         public ApiResponse List(int pIndex, int count)
@@ -52,10 +54,10 @@ namespace hhsl_api_server.Controllers
                     CollectTimes = reader.GetInt322("CollectTimes"),
                     SendInterval = reader.GetInt322("SendInterval"), 
                     SendStatus = reader.GetInt322("SendStatus"), 
-                    LLTime = reader.GetString("LLTime"),
-                    Name = reader.GetString("Name"),
-                    No = reader.GetString("No"),
-                    TType = reader.GetString("TType"), 
+                    LLTime = reader.GetString2("LLTime"),
+                    Name = reader.GetString2("Name"),
+                    No = reader.GetString2("No"),
+                    TType = reader.GetString2("TType"), 
                 });
             }
             reader.Close();
