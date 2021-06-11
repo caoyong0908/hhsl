@@ -90,7 +90,7 @@ namespace hhsl_api_server.Controllers
                       $"NetId = {info.NetId}, CommType = {info.CommType}, " +
                       $"ProtocolType = {info.ProtocolType}, DataTemplate = '{info.DataTemplate}', " +
                       $"Location = '{info.Location}', Vendor = '{info.Vendor}', Model = '{info.Model}', " +
-                      $"Desc = '{info.Desc}' " +
+                      $"`Desc` = '{info.Desc}' " +
                       $"WHERE Id = {info.Id}";
             opr.Execute(sql);
             opr.DisConnected();
