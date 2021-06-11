@@ -67,8 +67,9 @@ namespace hhsl_api_server.Controllers
             return response;
 
         }
+
         // add
-        [HttpGet]
+        [HttpPost]
         public ApiResponse Add([FromBody] TerminalSettingEntity setting)
         {
             ApiResponse response = new ApiResponse();
@@ -85,7 +86,7 @@ namespace hhsl_api_server.Controllers
         }
 
         // edit
-        [HttpGet]
+        [HttpPost]
         public ApiResponse Edit([FromBody] TerminalSettingEntity setting)
         {
             ApiResponse response = new ApiResponse();
