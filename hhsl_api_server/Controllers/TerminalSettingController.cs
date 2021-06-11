@@ -25,7 +25,7 @@ namespace hhsl_api_server.Controllers
             ApiResponse response = new ApiResponse();
             MySqlOperator opr = new MySqlOperator();
             opr.Connect();
-            var sql = $"SELECT ts.*, ti.Name, ti.No, ti.Type as TType " +
+            var sql = $"SELECT ts.*, ti.Name, ti.No, ti.Type as TType, ti.Id AS TIId " +
                       $"FROM terminal_setting as ts " +
                       $"RIGHT JOIN terminal_info as ti ON ti.Id = ts.TId " +
                       $"LIMIT {(pIndex - 1) * count}, {count}";
@@ -58,6 +58,7 @@ namespace hhsl_api_server.Controllers
                     Name = reader.GetString2("Name"),
                     No = reader.GetString2("No"),
                     TType = reader.GetString2("TType"), 
+                    TIId = reader.GetInt322("TTId")
                 });
             }
             reader.Close();

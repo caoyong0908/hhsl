@@ -16,5 +16,10 @@ namespace hhsl_api_server.Response.Entity
         /// 终端类型
         /// </summary>
         public string TType { get; set; }
+
+        /// <summary>
+        /// 终端Id
+        /// </summary>
+        public int TIId { get; set; }
     }
 }
