@@ -32,6 +32,7 @@ namespace hhsl_api_server.Controllers
         }
 
         // list
+
         [HttpGet]
         public ApiResponse List(int pIndex, int count)
         {
