@@ -24,8 +24,8 @@ namespace hhsl_api_server.Controllers
             MySqlOperator opr = new MySqlOperator();
             opr.Connect();
             var sql = $"INSERT INTO termina" +
-                      $"l_electricity(TId, LLTime, Electricity, Type) " +
-                      $"VALUES( {electricity.Tid}, '{electricity.LLTime}', {electricity.Electricity}, '{electricity.Type}')";
+                      $"l_electricity(TId, Electricity, Type) " +
+                      $"VALUES( {electricity.Tid}, '{electricity.Type}')";
             opr.Execute(sql);
             opr.DisConnected();
             return response;
@@ -38,7 +38,7 @@ namespace hhsl_api_server.Controllers
             ApiResponse response = new ApiResponse();
             MySqlOperator opr = new MySqlOperator();
             opr.Connect();
-            var sql = $"SELECT te.*, ti.Name, ti.No, ti.Type as TType " +
+            var sql = $"SELECT te.*, ti.Name, ti.No, ti.Type as TType, ti.Id as TIId " +
                       $"FROM terminal_electricity as te " +
                       $"RIGHT JOIN terminal_info as ti " +
                       $"ON ti.Id = te.TId " +
@@ -69,7 +69,8 @@ namespace hhsl_api_server.Controllers
                      Name = reader.GetString2("Name"),
                      No = reader.GetString2("No"),
                      TType = reader.GetString2("TType"),
-                     Type = reader.GetString2("Type"),
+                     Type = reader.GetString2("Type"), 
+                     TIId = reader.GetInt322("TIId"), 
                  });   
             }
             reader.Close();

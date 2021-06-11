@@ -58,7 +58,7 @@ namespace hhsl_api_server.Controllers
                     Name = reader.GetString2("Name"),
                     No = reader.GetString2("No"),
                     TType = reader.GetString2("TType"), 
-                    TIId = reader.GetInt322("TTId")
+                    TIId = reader.GetInt322("TIId")
                 });
             }
             reader.Close();
