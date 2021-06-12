@@ -53,7 +53,7 @@ namespace hhsl_api_server.Controllers
             opr.Connect();
             var sql = $"SELECT mng.*, COUNT(mn.GId) as Count, mp.`Name` as MPName " +
                       $"FROM monitor_node_group as mng " +
-                      $"INNER JOIN monitor_node as mn " +
+                      $"LEFT JOIN monitor_node as mn " +
                       $"on mn.GId = mng.Id " +
                       $"LEFT JOIN monitor_project as mp " +
                       $"on mp.Id = mn.PId " +
