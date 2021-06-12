@@ -81,7 +81,7 @@ namespace hhsl_api_server.Controllers
                     MId = reader.GetInt322("MId"), 
                     Name = reader.GetString2("Name"),
                     PName = reader.GetString2("PName"),
-                    Time = reader.GetString2("Time"), 
+                    Time = reader.GetString2("Time"),
                 });
             }
             reader.Close();
@@ -97,7 +97,21 @@ namespace hhsl_api_server.Controllers
             MySqlOperator opr = new MySqlOperator();
             opr.Connect();
             // group parameter
-            var selectRule = "";
+
+            // 判断时间
+
+            if (string.IsNullOrEmpty(sTime))
+            {
+                sTime = TimeTool.Get(DateTime.MinValue);
+            }
+
+            if (string.IsNullOrEmpty(eTime))
+            {
+                eTime = TimeTool.Now();
+            }
+
+
+            var selectRule = $"WHERE mnd.Time BETWEEN '{sTime}' AND '{eTime}' ";
             if (pId != 0)
             {
                 selectRule += $"AND mn.PId = {pId}";
@@ -115,9 +129,50 @@ namespace hhsl_api_server.Controllers
 
             }
 
-            var sql = $"";
+            var sql = $"SELECT mnd.*, mn.`Name`, mp.`Name` AS PName, mng.`Name` AS GName " +
+                      $"FROM monitor_node_data AS mnd " +
+                      $"INNER JOIN monitor_node AS mn ON mn.Id = mnd.Mid " +
+                      $"LEFT JOIN monitor_project AS mp ON mp.Id = mn.PId " +
+                      $"LEFT JOIN monitor_node_group AS mng ON mn.GId = mng.Id " +
+                      $"{selectRule} " +
+                      $"ORDER BY mnd.Time Desc " +
+                      $"LIMIT {(pIndex - 1) * count}, {count}";
 
+
+            var sqlPage = $"SELECT COUNT(1) " +
+                          $"FROM monitor_node_data AS mnd " +
+                          $"INNER JOIN monitor_node AS mn ON mn.Id = mnd.Mid " +
+                          $"LEFT JOIN monitor_project AS mp ON mp.Id = mn.PId " +
+                          $"LEFT JOIN monitor_node_group AS mng ON mn.GId = mng.Id " +
+                          $"{selectRule}";
+            var totalObj = opr.ExecuteScalar(sqlPage);
+            var total = Convert.ToInt32(totalObj);
+
+            if (total == 0)
+            {
+                opr.DisConnected();
+                return response;
+            }
+
+            var reader = opr.Reader(sql);
+            List<MonitorNodeDataResponse> datas = new List<MonitorNodeDataResponse>();
+            while (reader.Read())
+            {
+                datas.Add(new MonitorNodeDataResponse
+                {
+                    Data = reader.GetDouble2("Data"),
+                    Id = reader.GetInt322("Id"),
+                    MId = reader.GetInt322("MId"),
+                    Name = reader.GetString2("Name"),
+                    PName = reader.GetString2("PName"),
+                    Time = reader.GetString2("Time"),
+                    GName = reader.GetString2("GName"),
+                });
+            }
+            reader.Close();
             opr.DisConnected();
+
+            response.Data = new PageResponseEntity { Index = pIndex, Total = total, Count = count, Data = datas };
             return response;
         }
     }

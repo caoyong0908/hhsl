@@ -100,7 +100,9 @@
     <Compile Include="Controllers\TerminalInfoController.cs" />
     <Compile Include="Controllers\TerminalSettingController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WarningInfoController.cs" />
     <Compile Include="Controllers\WarningLevelController.cs" />
+    <Compile Include="Controllers\WarningRecordController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -129,6 +131,7 @@
     <Compile Include="Response\Entity\SensorInfoResponse.cs" />
     <Compile Include="Response\Entity\TerminalElectricityResponse.cs" />
     <Compile Include="Response\Entity\TerminalSettingResponse.cs" />
+    <Compile Include="Response\Entity\WarningInfoResponse.cs" />
     <Compile Include="Sql\MySqlOperater.cs" />
     <Compile Include="Sql\MySqlDataReaderExtension.cs" />
     <Compile Include="Tools\TimeTool.cs" />

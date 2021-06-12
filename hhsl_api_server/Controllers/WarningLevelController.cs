@@ -94,6 +94,7 @@ namespace hhsl_api_server.Controllers
                 });
                 
             }
+            reader.Close();
             opr.DisConnected();
 
             response.Data = new PageResponseEntity { Index = pIndex, Total = total, Count = count, Data = levels };

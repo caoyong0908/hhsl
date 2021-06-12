@@ -83,17 +83,17 @@ namespace hhsl_api_server.Controllers
             {
                 nodes.Add(new MonitorNodeResponse
                 {
-                    Desc = reader.GetString2(""),
-                    GName = reader.GetString2(""),
-                    PName = reader.GetString2(""),
-                    SName = reader.GetString2(""),
-                    Name = reader.GetString2(""),
-                    TName = reader.GetString2(""),
-                    No = reader.GetString2(""),
-                    Id = reader.GetInt322(""),
-                    PId = reader.GetInt322(""),
-                    GId = reader.GetInt322(""),
-                    SId = reader.GetInt322(""), 
+                    Desc = reader.GetString2("Desc"),
+                    GName = reader.GetString2("GName"),
+                    PName = reader.GetString2("PName"),
+                    SName = reader.GetString2("SName"),
+                    Name = reader.GetString2("Name"),
+                    TName = reader.GetString2("TName"),
+                    No = reader.GetString2("No"),
+                    Id = reader.GetInt322("Id"),
+                    PId = reader.GetInt322("PId"),
+                    GId = reader.GetInt322("GId"),
+                    SId = reader.GetInt322("SId"), 
                 });
             }
             reader.Close();
