@@ -92,6 +92,33 @@ namespace hhsl_api_server.Controllers
             return response;
         }
 
+
+        [HttpGet]
+        public ApiResponse All()
+        {
+            ApiResponse response = new ApiResponse();
+            MySqlOperator opr = new MySqlOperator();
+            opr.Connect();
+            var sql = $"SELECT * FROM monitor_node_group";
+            var reader = opr.Reader(sql);
+            List<MonitorGroupEntity> groups = new List<MonitorGroupEntity>();
+            while (reader.Read())
+            {
+                groups.Add(new MonitorGroupEntity
+                {
+                    Id = reader.GetInt322("Id"),
+                    Name = reader.GetString2("Name"),
+                    Desc = reader.GetString2("Desc"),
+                });
+            }
+            reader.Close();
+            opr.DisConnected();
+            response.Data = groups;
+            return response;
+
+        }
+
+
         // del
         [HttpGet]
         public ApiResponse Del(int id)
