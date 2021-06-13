@@ -62,7 +62,7 @@ namespace hhsl_api_server.Controllers
             {
                 // 添加人员
                 var sql = $"INSERT INTO " +
-                          $"userinfo(Account, Pwd, Email, Phone, Type, Name, ) " +
+                          $"userinfo(Account, Pwd, Email, Phone, Type, Name) " +
                           $"VALUES(" +
                           $"'{user.Account}', '{user.Pwd}', '{user.Email}', " +
                           $"'{user.Phone}', {user.Type}, '{user.Name}'" +
