@@ -132,6 +132,7 @@
     <Compile Include="Response\Entity\TerminalElectricityResponse.cs" />
     <Compile Include="Response\Entity\TerminalSettingResponse.cs" />
     <Compile Include="Response\Entity\WarningInfoResponse.cs" />
+    <Compile Include="Response\Entity\WarningRecordResponse.cs" />
     <Compile Include="Sql\MySqlOperater.cs" />
     <Compile Include="Sql\MySqlDataReaderExtension.cs" />
     <Compile Include="Tools\TimeTool.cs" />

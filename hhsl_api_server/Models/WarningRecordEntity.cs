@@ -9,11 +9,11 @@ namespace hhsl_api_server.Models
     {
         public int Id { get; set; }
 
-        public int PId { get; set; }
+        public  int WIId { get; set; }
 
-        public string Desc { get; set; }
+        public int MNDId { get; set; }
 
-        public string Name { get; set; }
+        public int Status { get; set; }
 
     }
 }
