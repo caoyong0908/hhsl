@@ -69,6 +69,58 @@ namespace hhsl_api_server.Controllers
 
         }
 
+        [HttpGet]
+        public ApiResponse Search(int pIndex, int count, string name = "", string type = "")
+        {
+            ApiResponse response = new ApiResponse();
+            MySqlOperator opr = new MySqlOperator();
+            opr.Connect();
+            var sql = $"SELECT ts.*, ti.Name, ti.No, ti.Type as TType, ti.Id AS TIId " +
+                      $"FROM terminal_setting as ts " +
+                      $"RIGHT JOIN terminal_info as ti ON ti.Id = ts.TId " +
+                      $"WHERE ti.`Name` LIKE '%{name}%' " +
+                      $"AND ti.Type LIKE '%{type}%' " +
+                      $"LIMIT {(pIndex - 1) * count}, {count}";
+
+            var sqlPage = $"SELECT COUNT(1) " +
+                          $"FROM terminal_setting as ts " +
+                          $"RIGHT JOIN terminal_info as ti ON ti.Id = ts.TId ";
+            var totalObj = opr.ExecuteScalar(sqlPage);
+            var total = Convert.ToInt32(totalObj);
+
+            if (total == 0)
+            {
+                opr.DisConnected();
+                return response;
+            }
+            var reader = opr.Reader(sql);
+            List<TerminalSettingResponse> setting = new List<TerminalSettingResponse>();
+            while (reader.Read())
+            {
+                setting.Add(new TerminalSettingResponse
+                {
+                    Id = reader.GetInt322("Id"),
+                    TId = reader.GetInt322("TId"),
+                    CollectInterval = reader.GetInt322("CollectInterval"),
+                    CollectModel = reader.GetInt322("CollectModel"),
+                    CollectTimes = reader.GetInt322("CollectTimes"),
+                    SendInterval = reader.GetInt322("SendInterval"),
+                    SendStatus = reader.GetInt322("SendStatus"),
+                    LLTime = reader.GetString2("LLTime"),
+                    Name = reader.GetString2("Name"),
+                    No = reader.GetString2("No"),
+                    TType = reader.GetString2("TType"),
+                    TIId = reader.GetInt322("TIId")
+                });
+            }
+            reader.Close();
+            opr.DisConnected();
+
+            response.Data = new PageResponseEntity { Index = pIndex, Total = total, Count = count, Data = setting };
+            return response;
+        }
+
+
         // add
         [HttpPost]
         public ApiResponse Add([FromBody] TerminalSettingEntity setting)
