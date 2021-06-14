@@ -16,7 +16,6 @@ namespace hhsl_api_server.Controllers
     /// </summary>
     public class TerminalSettingController : ApiController
     {
-        // todo 需要根据终端类型和名称进行搜索
 
         // list
         [HttpGet]
