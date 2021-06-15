@@ -48,18 +48,18 @@ namespace hhsl_api_server.Controllers
             var selectRule = "";
             if (pId != 0)
             {
-                selectRule += $"AND mn.PId = {pId}";
+                selectRule += $"AND mn.PId = {pId} ";
             }
 
             if (gId != 0)
             {
-                selectRule += $"AND mn.GId = {gId}";
+                selectRule += $"AND mn.GId = {gId} ";
 
             }
 
             if (nId != 0)
             {
-                selectRule += $"AND mn.Id = {nId}";
+                selectRule += $"AND mn.Id = {nId} ";
 
             }
 
@@ -114,18 +114,18 @@ namespace hhsl_api_server.Controllers
             var selectRule = $"WHERE mnd.Time BETWEEN '{sTime}' AND '{eTime}' ";
             if (pId != 0)
             {
-                selectRule += $"AND mn.PId = {pId}";
+                selectRule += $"AND mn.PId = {pId} ";
             }
 
             if (gId != 0)
             {
-                selectRule += $"AND mn.GId = {gId}";
+                selectRule += $"AND mn.GId = {gId} ";
 
             }
 
             if (nId != 0)
             {
-                selectRule += $"AND mn.Id = {nId}";
+                selectRule += $"AND mn.Id = {nId} ";
 
             }
 

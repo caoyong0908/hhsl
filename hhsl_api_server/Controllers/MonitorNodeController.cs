@@ -61,7 +61,7 @@ namespace hhsl_api_server.Controllers
                       $"LEFT JOIN monitor_node_group AS mng " +
                       $"ON mng.Id = mn.GId " +
                       $"LEFT JOIN sensor_info AS si " +
-                      $"ON mn.GId = si.Id " +
+                      $"ON mn.SId = si.Id " +
                       $"LEFT JOIN terminal_info  AS ti " +
                       $"ON si.TId = ti.Id " +
                       $"LIMIT {(pIndex - 1) * count}, {count}";

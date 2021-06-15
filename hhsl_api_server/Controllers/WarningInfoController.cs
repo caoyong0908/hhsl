@@ -138,12 +138,12 @@ namespace hhsl_api_server.Controllers
 
             if (pId != 0)
             {
-                selectRule += $"AND mn.PId = {pId}";
+                selectRule += $"AND mn.PId = {pId} ";
             }
 
             if (mnId != 0)
             {
-                selectRule += $"AND wi.MNId = {mnId}";
+                selectRule += $"AND wi.MNId = {mnId} ";
 
             }
 
