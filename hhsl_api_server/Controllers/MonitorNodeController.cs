@@ -102,6 +102,63 @@ namespace hhsl_api_server.Controllers
             return response;
 
         }
+
+        // list
+        [HttpGet]
+        public ApiResponse Search(int pId = 0, int gId = 0)
+        {
+            ApiResponse response = new ApiResponse();
+            MySqlOperator opr = new MySqlOperator();
+            opr.Connect();
+
+            // group parameter
+            var selectRule = "WHERE 1 = 1 ";
+
+
+            if (pId != 0)
+            {
+                selectRule += $"AND PId = {pId} ";
+            }
+
+            if (gId != 0)
+            {
+                selectRule += $"AND GId = {gId} ";
+
+            }
+
+            var sql = $"SELECT Id, `Name` " +
+                      $"FROM monitor_node " +
+                      $"{selectRule}";
+
+
+            var sqlPage = $"SELECT COUNT(1) " +
+                          $"FROM monitor_node " +
+                          $"{selectRule}";
+            var totalObj = opr.ExecuteScalar(sqlPage);
+            var total = Convert.ToInt32(totalObj);
+
+            if (total == 0)
+            {
+                opr.DisConnected();
+                return response;
+            }
+
+            var reader = opr.Reader(sql);
+            List<object> nodes = new List<object>();
+            while (reader.Read())
+            {
+                nodes.Add(new
+                {
+                    Name = reader.GetString2("Name"),
+                    Id = reader.GetInt322("Id"),
+                });
+            }
+            reader.Close();
+            opr.DisConnected();
+            response.Data = nodes;
+            return response;
+
+        }
         // del
         [HttpGet]
         public ApiResponse Del(int id)

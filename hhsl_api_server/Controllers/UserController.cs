@@ -74,6 +74,29 @@ namespace hhsl_api_server.Controllers
         }
 
 
+
+
+        [HttpPost]
+        public ApiResponse Edit([FromBody] UserInfoEntity user)
+        {
+            ApiResponse response = new ApiResponse();
+            MySqlOperator opr = new MySqlOperator();
+            opr.Connect();
+            // 编辑人员信息
+            var sql = $"UPDATE userinfo " +
+                      $"SET " +
+                      $"Pwd = '{user.Pwd}', " +
+                      $"Type = {user.Type},`Name` = '{user.Name}', " +
+                      $"Email = '{user.Email}', Phone = '{user.Phone}' " +
+                      $"WHERE Id = {user.Id}";
+            opr.Execute(sql);
+            opr.DisConnected();
+            return response;
+        }
+
+
+
+
         [HttpGet]
         public ApiResponse List(int pIndex, int count)
         {
